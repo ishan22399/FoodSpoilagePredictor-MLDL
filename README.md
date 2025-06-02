@@ -234,57 +234,6 @@ File type not allowed
 ```
 **Solution**: Use supported image formats (JPG, PNG, JPEG, GIF).
 
-### Performance Optimization
-- Use GPU for model training (CUDA-enabled TensorFlow)
-- Implement image caching for faster repeated analyses
-- Consider model quantization for mobile deployment
-
-## 📈 Future Enhancements
-
-### Planned Features
-- [ ] Multi-language support
-- [ ] Mobile app (React Native/Flutter)
-- [ ] Real-time camera analysis
-- [ ] Batch image processing
-- [ ] Advanced nutritional information
-- [ ] Integration with IoT sensors
-- [ ] Cloud deployment (AWS/Azure)
-
-### Technical Improvements
-- [ ] Model ensemble for higher accuracy
-- [ ] Explainable AI features
-- [ ] Edge deployment optimization
-- [ ] Advanced data augmentation
-- [ ] Automated model retraining
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Development Guidelines
-- Follow PEP 8 Python style guide
-- Add unit tests for new features
-- Update documentation for API changes
-- Test on multiple devices/browsers
-
-
-## 🙏 Acknowledgments
-
-- **Kaggle**: Fruits Fresh and Rotten dataset
-- **TensorFlow Team**: Pre-trained VGG16 model
-- **Flask Community**: Web framework
-- **Open Source Contributors**: Various libraries and tools
-
-## 📞 Support
-
-- **Email**: [ishanshivankar14@gmail.com]
-- **Issues**: [GitHub Issues](repository-url/issues)
-- **Documentation**: [Project Wiki](repository-url/wiki)
-
 ## 🔗 Related Resources
 
 - [Food Safety Guidelines](https://www.fda.gov/food/buy-store-serve-safe-food)
