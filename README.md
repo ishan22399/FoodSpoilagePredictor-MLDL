@@ -1,6 +1,6 @@
 # FoodScan AI - Advanced Food Spoilage Detection
 
-![FoodScan AI](static/images/og-image.jpg)
+![FoodScan AI](https://cdni.iconscout.com/illustration/premium/thumb/expert-foodie-trying-food-and-makes-review-illustration-download-in-svg-png-gif-file-formats--woman-blogger-making-drink-pack-illustrations-5073007.png?f=webp)
 
 FoodScan AI is an advanced machine learning system that uses computer vision and sensor data to detect food spoilage, helping reduce food waste and prevent foodborne illness.
 
