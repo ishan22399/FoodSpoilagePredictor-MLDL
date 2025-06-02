@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodScan AI | Advanced Food Spoilage Detection</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Add favicon with fallback -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}" onerror="this.href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAFdQTFRFAAAA5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL5uYL////tEL0AgAAAAx0Uk5TADKIzfn9JG3L8uwDQXhVhgAAAAFiS0dEDxi6ANkAAAAJcEhZcwAAFxEAABcRAcom8z8AAABgSURBVDjLxdPBDsIwDETRkGAnaZq0TQv//58YiBBCIHbBzNZz5GoJuFBAQCCAogAeQFWBZoRmBDXMYFuAIACXANcA3gAii9IAyaJ0iZngy47iyx+kAbuoMDXfVDu4/QCigQ0aMvXQPQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyNC0wNC0xOVQyMDozNTozMCswMDowMPxRXxkAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjQtMDQtMTlUMjA6MzU6MzArMDA6MDCNDO+lAAAAKHRFWHRkYXRlOnRpbWVzdGFtcAAyMDI0LTA0LTE5VDIwOjM1OjMwKzAwOjAwug3OWAAAAABJRU5ErkJggg=='">
+    <!-- Add Open Graph meta tags for better social sharing -->
+    <meta property="og:title" content="FoodScan AI | Advanced Food Spoilage Detection">
+    <meta property="og:description" content="Use AI to detect if your food is fresh or spoiled. Prevent foodborne illness with our advanced detection technology.">
+    <meta property="og:image" content="static/images/og-image.jpg">
+    <meta property="og:url" content="https://foodscan.ai">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <i class="fas fa-apple-alt logo-icon"></i>
+                <span class="logo-text">FoodScan<span class="accent">AI</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" title="Toggle dark/light mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>AI-Powered Food Spoilage Detection</h1>
+            <p>Instantly analyze your food with advanced machine learning to determine if it's fresh or spoiled</p>
+            <a href="#scanner-section" class="cta-button">Try It Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="hero-image">
+            <img src="https://cdni.iconscout.com/illustration/premium/thumb/expert-foodie-trying-food-and-makes-review-illustration-download-in-svg-png-gif-file-formats--woman-blogger-making-drink-pack-illustrations-5073007.png?f=webp" alt="Food analysis illustration">
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="container" id="scanner-section">
+        <div class="section-header">
+            <div class="section-icon"><i class="fas fa-microscope"></i></div>
+            <h2>Analyze Your Food</h2>
+            <p>Upload a clear photo of your food to check its freshness</p>
+        </div>
+
+        <main>
+            <div class="upload-container">
+                <div id="drop-area" class="drop-area">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <p class="upload-text">Drag & drop food image here</p>
+                    <p class="upload-text-small">or</p>
+                    <form id="upload-form" enctype="multipart/form-data">
+                        <input type="file" id="file-input" name="file" accept="image/*" hidden>
+                        <button type="button" id="select-button" class="btn">
+                            <i class="fas fa-image"></i> Select Image
+                        </button>
+                    </form>
+                    <p class="supported-formats">Supported formats: JPG, PNG, JPEG</p>
+                </div>
+                <div id="preview-container" class="preview-container hidden">
+                    <div class="preview-header">
+                        <h3>Preview</h3>
+                        <button id="close-preview" class="icon-button">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="image-preview-wrapper">
+                        <img id="preview-image" alt="Preview">
+                    </div>
+                    <div class="image-actions">
+                        <button id="change-image" class="btn btn-secondary">
+                            <i class="fas fa-sync-alt"></i> Change Image
+                        </button>
+                        <button id="crop-image" class="btn btn-secondary">
+                            <i class="fas fa-crop-alt"></i> Crop
+                        </button>
+                        <button id="analyze-button" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Analyze Food
+                        </button>
+                    </div>
+                    <div class="image-tips">
+                        <i class="fas fa-lightbulb tip-icon"></i>
+                        <p>For best results, ensure the food is well-lit and clearly visible</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="result-container" class="result-container hidden">
+                <div class="loader" id="loader">
+                    <div class="scanner">
+                        <div class="scanner-bar"></div>
+                    </div>
+                    <div class="scanner-text">
+                        <div class="spinner"></div>
+                        <p>Analyzing your food...</p>
+                        <div class="analysis-steps">
+                            <div class="step active">Processing image</div>
+                            <div class="step">Running through AI model</div>
+                            <div class="step">Analyzing results</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="result" class="hidden">
+                    <div class="result-header">
+                        <div id="result-icon" class="result-icon">
+                            <i class="icon"></i>
+                        </div>
+                        <h2 id="result-title">Result</h2>
+                        <p id="result-timestamp"></p>
+                    </div>
+                    <div id="result-details">
+                        <div class="confidence">
+                            <div class="confidence-label">AI Confidence:</div>
+                            <div class="confidence-bar-container">
+                                <div class="confidence-bar">
+                                    <div id="confidence-level"></div>
+                                </div>
+                                <p id="confidence-text">0%</p>
+                            </div>
+                        </div>
+                        <div class="result-analysis">
+                            <h3>Analysis</h3>
+                            <div id="recommendation" class="recommendation"></div>
+                        </div>
+                        <div class="additional-info">
+                            <div class="info-row">
+                                <div class="info-label">Analyzed Date:</div>
+                                <div class="info-value" id="analysis-date"></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Detection Method:</div>
+                                <div class="info-value">VGG16 Deep Learning</div>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button id="download-report" class="btn btn-secondary">
+                                <i class="fas fa-download"></i> Download Report
+                            </button>
+                            <button id="analyze-new" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Analyze New Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <section id="how-it-works" class="how-it-works">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-cogs"></i></div>
+                <h2>How It Works</h2>
+                <p>Our advanced AI system analyzes food images in three simple steps</p>
+            </div>
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon"><i class="fas fa-upload"></i></div>
+                    <h3>Upload Image</h3>
+                    <p>Take a clear photo of your food and upload it to our system</p>
+                </div>
+                <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon"><i class="fas fa-brain"></i></div>
+                    <h3>AI Analysis</h3>
+                    <p>Our deep learning model analyzes visual patterns associated with food spoilage</p>
+                </div>
+                <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Get Results</h3>
+                    <p>Receive instant results about the freshness of your food with recommendations</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-star"></i></div>
+                <h2>Key Features</h2>
+                <p>What makes our food spoilage detection technology stand out</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <h3>Instant Analysis</h3>
+                    <p>Get results in seconds without waiting or complicated processes</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>High Accuracy</h3>
+                    <p>Our AI model achieves over 95% accuracy in detecting food spoilage</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Works perfectly on all devices so you can check food anywhere</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3>Privacy First</h3>
+                    <p>Your images are processed securely and never stored without permission</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Multi-Food Support</h3>
+                    <p>Works with fruits, vegetables, dairy, and many other food types</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-history"></i></div>
+                    <h3>Analysis History</h3>
+                    <p>Save and review your previous food freshness analyses</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="faq-section">
+            <div class="section-header">
+                <div class="section-icon"><i class="fas fa-question-circle"></i></div>
+                <h2>Frequently Asked Questions</h2>
+                <p>Common questions about our food spoilage detection system</p>
+            </div>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        How accurate is the food spoilage detection?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Our AI model has been trained on thousands of images and achieves over 95% accuracy in controlled tests. However, accuracy may vary depending on image quality, lighting conditions, and food type. We recommend using the tool as a guide alongside your own judgment.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        What types of food can be analyzed?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>The system works best with fruits, vegetables, bread, dairy products, and some prepared foods. It may have limitations with highly processed foods, mixed dishes, or foods with preservatives that mask visual spoilage indicators.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        Is my data private and secure?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Yes! We take data privacy seriously. Your images are processed securely on our servers, analyzed by our AI model, and then automatically deleted. We do not store your images unless you explicitly opt in to help improve our model.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        Can I use this tool to prevent foodborne illness?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>While our tool can help identify visibly spoiled food, it should not be your only method for determining food safety. Some harmful bacteria don't produce visible signs. Always follow proper food safety guidelines, check expiration dates, and when in doubt, throw it out.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        Do I need to create an account to use this service?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>No, you can use the basic food spoilage detection feature without creating an account. However, creating a free account allows you to access premium features like saving your analysis history, downloading detailed reports, and getting personalized recommendations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Ready to ensure your food is safe to eat?</h2>
+                <p>Upload your first image and get an instant analysis</p>
+                <a href="#scanner-section" class="btn btn-large">Try It Now</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="logo footer-logo">
+                    <i class="fas fa-apple-alt logo-icon"></i>
+                    <span class="logo-text">FoodScan<span class="accent">AI</span></span>
+                </div>
+                <p class="footer-description">Using artificial intelligence to help reduce food waste and prevent foodborne illness.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#faq">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Data Processing</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe for updates and tips on food safety</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit" class="btn btn-sm">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 FoodScanAI. All rights reserved.</p>
+            <p class="made-with">Made with <i class="fas fa-heart"></i> for food safety</p>
+        </div>
+    </footer>
+
+    <!-- Notification Toast
+    <div id="notification" class="notification">
+        <div class="notification-icon">
+            <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="notification-content">
+            <p id="notification-message">Notification message here</p>
+        </div>
+        <button id="notification-close" class="notification-close">
+            <i class="fas fa-times"></i>
+        </button>
+    </div> -->
+
+    <!-- Scripts -->
+    <script src="static/script.js"></script>
+</body>
+</html>
